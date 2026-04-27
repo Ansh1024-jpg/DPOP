@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-primary-container": "#8aa4cf",
+                "info-border": "#93C5FD",
+                "grey-600": "#475569",
+                "inverse-primary": "#adc8f5",
+                "secondary": "#30628d",
+                "info-text": "#1E40AF",
+                "tertiary": "#341f00",
+                "surface-dim": "#dad9dd",
+                "on-primary-fixed": "#001c3b",
+                "warning-text": "#92400E",
+                "escalated-border": "#C4B5FD",
+                "surface": "#faf9fc",
+                "surface-container-low": "#f4f3f7",
+                "inverse-on-surface": "#f1f0f4",
+                "secondary-fixed-dim": "#9ccbfc",
+                "surface-variant": "#e3e2e6",
+                "error-container": "#ffdad6",
+                "on-background": "#1a1c1e",
+                "secondary-fixed": "#cfe5ff",
+                "on-secondary-container": "#245882",
+                "success-bg": "#F0FDF4",
+                "danger-border": "#FCA5A5",
+                "primary": "#022448",
+                "primary-container": "#1e3a5f",
+                "surface-bright": "#faf9fc",
+                "info-bg": "#EFF6FF",
+                "primary-fixed-dim": "#adc8f5",
+                "on-secondary-fixed": "#001d33",
+                "accent": "#0EA5E9",
+                "on-tertiary-container": "#c69b5f",
+                "tertiary-fixed": "#ffddb2",
+                "escalated-bg": "#FAF5FF",
+                "success-border": "#86EFAC",
+                "surface-tint": "#455f87",
+                "error": "#ba1a1a",
+                "orange-border": "#FDBA74",
+                "background": "#faf9fc",
+                "outline": "#74777f",
+                "surface-container-high": "#e9e7eb",
+                "orange-text": "#9A3412",
+                "secondary-container": "#9fceff",
+                "grey-800": "#1E293B",
+                "on-primary-fixed-variant": "#2d486d",
+                "orange-bg": "#FFF7ED",
+                "surface-container-lowest": "#ffffff",
+                "tertiary-container": "#503300",
+                "danger-text": "#991B1B",
+                "on-tertiary-fixed": "#291800",
+                "on-tertiary": "#ffffff",
+                "on-secondary": "#ffffff",
+                "grey-400": "#94A3B8",
+                "primary-fixed": "#d5e3ff",
+                "on-secondary-fixed-variant": "#104a74",
+                "surface-container": "#eeedf1",
+                "on-tertiary-fixed-variant": "#60410c",
+                "on-surface": "#1a1c1e",
+                "surface-container-highest": "#e3e2e6",
+                "on-surface-variant": "#43474e",
+                "grey-900": "#0F172A",
+                "on-error-container": "#93000a",
+                "grey-50": "#F8FAFC",
+                "on-primary": "#ffffff",
+                "grey-300": "#CBD5E1",
+                "tertiary-fixed-dim": "#edbf7f",
+                "warning-bg": "#FFFBEB",
+                "grey-100": "#F1F5F9",
+                "warning-border": "#FCD34D",
+                "on-error": "#ffffff",
+                "inverse-surface": "#2f3033",
+                "success-text": "#166534",
+                "outline-variant": "#c4c6cf",
+                "grey-200": "#E2E8F0",
+                "danger-bg": "#FEF2F2",
+                "escalated-text": "#6B21A8"
+            },
+            "borderRadius": {
+                "DEFAULT": "4px",
+                "lg": "8px",
+                "xl": "12px",
+                "full": "9999px"
+            },
+            "spacing": {
+                "xl": "20px",
+                "2xl": "24px",
+                "sm": "8px",
+                "lg": "16px",
+                "4xl": "48px",
+                "xs": "4px",
+                "md": "12px",
+                "3xl": "32px"
+            },
+            "fontFamily": {
+                "section-heading": ["Inter"],
+                "label-overline": ["Inter"],
+                "display-title": ["Inter"],
+                "card-heading": ["Inter"],
+                "mono-data": ["monospace"],
+                "body-regular": ["Inter"],
+                "body-small": ["Inter"]
+            },
+            "fontSize": {
+                "section-heading": ["20px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                "label-overline": ["11px", {"lineHeight": "1.0", "letterSpacing": "0.06em", "fontWeight": "500"}],
+                "display-title": ["32px", {"lineHeight": "1.25", "fontWeight": "700"}],
+                "card-heading": ["16px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                "mono-data": ["13px", {"lineHeight": "1.0", "fontWeight": "400"}],
+                "body-regular": ["14px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "body-small": ["13px", {"lineHeight": "1.5", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased overflow-hidden h-screen flex">
+<!-- Management Layout SideNavBar -->
+<nav class="fixed left-0 top-0 h-screen flex flex-col py-6 bg-[#1E3A5F] text-white font-['Inter'] text-sm font-medium docked w-[240px] border-r border-slate-700 z-50">
+<div class="text-xl font-black text-white px-4 mb-8">InsureTrust</div>
+<div class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-6 py-3 text-slate-300 hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 bg-white/10 text-white border-l-[3px] border-[#0EA5E9] transition-all" href="#">
+<span class="material-symbols-outlined">description</span>
+<span>Applications</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-300 hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">verified_user</span>
+<span>Policy Review</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-300 hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span>Underwriting</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-300 hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">warning</span>
+<span>Risk Analysis</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-300 hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</div>
+<div class="pt-6 border-t border-white/10 mt-auto">
+<div class="px-6 mb-6 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-accent/20 flex items-center justify-center text-accent text-xs font-bold">JD</div>
+<div class="overflow-hidden">
+<p class="text-xs font-bold truncate">Management Portal</p>
+<p class="text-[10px] text-slate-400 truncate">Enterprise Suite</p>
+</div>
+</div>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-300 hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">help</span>
+<span>Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-300 hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 ml-[240px] flex flex-col h-screen">
+<!-- Header & Breadcrumbs -->
+<header class="bg-surface-container-lowest border-b border-grey-200 px-3xl py-lg sticky top-0 z-40">
+<nav class="flex items-center gap-sm mb-sm text-grey-600 font-label-overline text-label-overline">
+<a class="hover:text-primary transition-colors uppercase" href="#">Applications</a>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<a class="hover:text-primary transition-colors uppercase" href="#">Active Queue</a>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="text-primary uppercase font-bold">APP-89241-LM</span>
+</nav>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-lg">
+<h1 class="font-display-title text-display-title text-grey-900">Application: Liam Miller</h1>
+<div class="flex items-center gap-sm">
+<!-- Status Badge -->
+<div class="flex items-center gap-xs px-md py-xs bg-orange-bg border border-orange-border text-orange-text rounded-full font-label-overline">
+<span class="w-1.5 h-1.5 bg-orange-text rounded-full"></span>
+                            PENDING UNDERWRITING
+                        </div>
+<!-- Risk Badge -->
+<div class="flex items-center gap-xs px-md py-xs bg-danger-bg border border-danger-border text-danger-text rounded-full font-label-overline">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                            ELEVATED RISK
+                        </div>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<span class="font-body-small text-grey-600">ID: #49201-92</span>
+<span class="w-px h-4 bg-grey-200 mx-xs"></span>
+<span class="font-body-small text-grey-600">Assigned: Sarah Jenkins</span>
+</div>
+</div>
+</header>
+<!-- Three-Panel Layout Container -->
+<div class="flex-1 flex overflow-hidden p-3xl gap-3xl">
+<!-- Panel A: PDF Viewer (35%) -->
+<section class="w-[35%] flex flex-col bg-grey-900 rounded-xl overflow-hidden border border-grey-200 shadow-sm">
+<div class="bg-grey-800 px-lg py-sm flex items-center justify-between text-white">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-accent">picture_as_pdf</span>
+<span class="font-body-small font-semibold">Policy_Application_Miller.pdf</span>
+</div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-lg cursor-pointer hover:text-accent">zoom_in</span>
+<span class="material-symbols-outlined text-lg cursor-pointer hover:text-accent">zoom_out</span>
+<span class="material-symbols-outlined text-lg cursor-pointer hover:text-accent">download</span>
+</div>
+</div>
+<div class="flex-1 bg-grey-100 overflow-y-auto p-4xl flex flex-col items-center gap-3xl">
+<img class="w-full shadow-2xl border border-grey-300" data-alt="high-resolution scanned business document with professional layout, formal headers, and black text on clean white paper background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBra78wP1HY1NCXEyzhukgTgUIi9arA6SHPrxUtWvuJbplJIBRbUHkkyRtZww9dPuprFSLdtxaIXfZvaMkvDPmKtWrIV_v5E0Rwx7GE9W5ZKaF3blClOtcS7TiVHkkUe7TfGdp5XeZtgJ-QdGf0vu1roEIN75yytYmdGOOIZiG78f0g8N20fEg_1CzqO-cchN5lyfjHgLpPrUYm-YdBxuiQDJ_ggt9FreEe8ZOdyG3K1-HacTqRoQLnzVjL0JLKYchbPx6P8Lm27g9I"/>
+<img class="w-full shadow-2xl border border-grey-300" data-alt="second page of a professional insurance policy document featuring multiple text columns, signature lines, and official corporate seals" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYkNWpzE8Nb_km05NVrPASB_2O-cS2Nrw7n5MLMh5IqSjC1dv_vWI7Ty7uu1tBGeURTCuzwvYbq4BXntuA0_6jiY_SuzsOUZS3TjuBzOdufJSniz0vUrfF6pbn3J7a1GvvPBsu6daiC-mtbedxA9s0ygv1_-SnNleZhAw8OKm2yE_XGIQsNzmJ7ZZRX9BE6rBwIjn3I_NYNkmfxFW9znegu1-_xdH4S6N0DkCsgsct1hY50lmyvaPGnXiVKBf6e3RYxOEOQP75cnWb"/>
+</div>
+</section>
+<!-- Panel B: Data & AI (40%) -->
+<section class="w-[40%] flex flex-col gap-2xl overflow-y-auto pr-sm">
+<!-- AI Narrative Analysis -->
+<div class="bg-surface-container-lowest border border-grey-200 rounded-xl overflow-hidden shadow-sm">
+<div class="p-2xl border-l-4 border-accent bg-info-bg/30">
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-accent" data-weight="fill">auto_awesome</span>
+<h2 class="font-section-heading text-section-heading text-primary">AI Underwriting Narrative</h2>
+</div>
+<p class="font-body-regular text-grey-800 mb-lg leading-relaxed">
+                            Liam Miller's application presents a <span class="font-bold text-danger-text">Medium-High risk profile</span> primarily due to professional liability exposure in high-risk territories. While credit history and previous claims are clean, the recent expansion into South American markets warrants a manual audit of liability coverage limits.
+                        </p>
+<div class="bg-danger-bg border border-danger-border p-md rounded flex items-start gap-md">
+<span class="material-symbols-outlined text-danger-text">info</span>
+<div class="font-body-small text-danger-text">
+<span class="font-bold">Manual Review Required:</span> Professional liability clause 4.2 conflicts with regional regulatory standards in current operating market.
+                            </div>
+</div>
+</div>
+</div>
+<!-- Extracted Details (Collapsible) -->
+<div class="bg-surface-container-lowest border border-grey-200 rounded-xl overflow-hidden shadow-sm">
+<button class="w-full flex items-center justify-between p-2xl hover:bg-grey-50 transition-colors">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-grey-600">database</span>
+<span class="font-card-heading text-card-heading">Extracted Application Details</span>
+</div>
+<span class="material-symbols-outlined text-grey-400">expand_less</span>
+</button>
+<div class="px-2xl pb-2xl grid grid-cols-2 gap-x-2xl gap-y-lg border-t border-grey-100 pt-2xl">
+<div>
+<p class="font-label-overline text-label-overline text-grey-400 uppercase mb-xs">Legal Entity Name</p>
+<p class="font-body-regular text-grey-800 font-medium">Miller Global Logistics LLC</p>
+</div>
+<div>
+<p class="font-label-overline text-label-overline text-grey-400 uppercase mb-xs">Annual Revenue</p>
+<p class="font-body-regular text-grey-800 font-medium">$12,450,000 USD</p>
+</div>
+<div>
+<p class="font-label-overline text-label-overline text-grey-400 uppercase mb-xs">Primary Industry</p>
+<p class="font-body-regular text-grey-800 font-medium">Intermodal Freight Transportation</p>
+</div>
+<div>
+<p class="font-label-overline text-label-overline text-grey-400 uppercase mb-xs">Employee Count</p>
+<p class="font-body-regular text-grey-800 font-medium">142 FTE</p>
+</div>
+<div class="col-span-2">
+<p class="font-label-overline text-label-overline text-grey-400 uppercase mb-xs">Registered Address</p>
+<p class="font-body-regular text-grey-800 font-medium">452 Commerce Drive, Suite 800, Chicago, IL 60601</p>
+</div>
+</div>
+</div>
+<!-- Flag Breakdown (Table within Card) -->
+<div class="bg-surface-container-lowest border border-grey-200 rounded-xl overflow-hidden shadow-sm">
+<button class="w-full flex items-center justify-between p-2xl hover:bg-grey-50 transition-colors">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-danger-text">flag</span>
+<span class="font-card-heading text-card-heading">Security &amp; Risk Flag Breakdown</span>
+</div>
+<span class="material-symbols-outlined text-grey-400">expand_less</span>
+</button>
+<div class="border-t border-grey-100 overflow-hidden">
+<table class="w-full text-left">
+<thead class="bg-grey-50 font-label-overline text-label-overline text-grey-600">
+<tr>
+<th class="px-2xl py-md uppercase">Factor</th>
+<th class="px-2xl py-md uppercase">Severity</th>
+<th class="px-2xl py-md uppercase">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-small text-grey-800">
+<tr class="border-b border-grey-100 hover:bg-grey-50">
+<td class="px-2xl py-lg font-medium">Entity Sanction Check</td>
+<td class="px-2xl py-lg"><span class="text-success-text">Clear</span></td>
+<td class="px-2xl py-lg">
+<div class="flex items-center gap-xs">
+<span class="w-1.5 h-1.5 bg-success-text rounded-full"></span>
+                                            Verified
+                                        </div>
+</td>
+</tr>
+<tr class="border-b border-grey-100 hover:bg-grey-50">
+<td class="px-2xl py-lg font-medium">Market Exposure (LatAm)</td>
+<td class="px-2xl py-lg"><span class="text-orange-text">High</span></td>
+<td class="px-2xl py-lg">
+<div class="flex items-center gap-xs">
+<span class="w-1.5 h-1.5 bg-orange-text rounded-full"></span>
+                                            In Review
+                                        </div>
+</td>
+</tr>
+<tr class="hover:bg-grey-50">
+<td class="px-2xl py-lg font-medium">Officer Litigation History</td>
+<td class="px-2xl py-lg"><span class="text-success-text">None</span></td>
+<td class="px-2xl py-lg">
+<div class="flex items-center gap-xs">
+<span class="w-1.5 h-1.5 bg-success-text rounded-full"></span>
+                                            Verified
+                                        </div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Panel C: Action Card (25%) -->
+<section class="w-[25%] flex flex-col">
+<div class="sticky top-0 bg-surface-container-lowest border border-grey-200 rounded-xl shadow-md p-2xl">
+<h3 class="font-card-heading text-card-heading text-primary mb-lg">Underwriting Decision</h3>
+<p class="font-body-small text-grey-600 mb-2xl">Select an action for application APP-89241-LM. This will trigger the next workflow stage and notify the applicant.</p>
+<div class="space-y-md">
+<!-- Primary Approve -->
+<button class="w-full flex items-center justify-center gap-sm bg-primary hover:bg-[#033365] text-white py-md rounded-lg font-bold transition-all shadow-sm">
+<span class="material-symbols-outlined">check_circle</span>
+                            APPROVE POLICY
+                        </button>
+<!-- Secondary Escalate -->
+<button class="w-full flex items-center justify-center gap-sm bg-escalated-bg border border-escalated-border text-escalated-text hover:bg-purple-100 py-md rounded-lg font-bold transition-all">
+<span class="material-symbols-outlined">assignment_ind</span>
+                            ESCALATE TO SENIOR
+                        </button>
+<!-- Secondary Reject -->
+<button class="w-full flex items-center justify-center gap-sm bg-danger-bg border border-danger-border text-danger-text hover:bg-red-100 py-md rounded-lg font-bold transition-all">
+<span class="material-symbols-outlined">cancel</span>
+                            REJECT APPLICATION
+                        </button>
+</div>
+<div class="mt-3xl pt-2xl border-t border-grey-100">
+<label class="font-label-overline text-label-overline text-grey-600 uppercase block mb-sm">Decision Notes</label>
+<textarea class="w-full border border-grey-200 rounded-lg p-md font-body-small text-grey-800 min-h-[120px] focus:border-accent focus:ring-1 focus:ring-accent" placeholder="Add justification for your decision..."></textarea>
+</div>
+<div class="mt-2xl flex items-center justify-between font-body-small text-grey-400">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">history</span>
+<span>Auto-saved 2m ago</span>
+</div>
+</div>
+</div>
+<!-- Small Supporting Info Card -->
+<div class="mt-lg bg-info-bg/50 border border-info-border rounded-xl p-lg flex items-start gap-md">
+<span class="material-symbols-outlined text-info-text text-lg">lightbulb</span>
+<p class="font-body-small text-info-text">Escalating will transfer this case to the <span class="font-bold">Risk Management Committee</span> for final determination.</p>
+</div>
+</section>
+</div>
+</main>
+</body></html>

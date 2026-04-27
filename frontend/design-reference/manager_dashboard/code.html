@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#8aa4cf",
+                    "info-border": "#93C5FD",
+                    "grey-600": "#475569",
+                    "inverse-primary": "#adc8f5",
+                    "secondary": "#30628d",
+                    "info-text": "#1E40AF",
+                    "tertiary": "#341f00",
+                    "surface-dim": "#dad9dd",
+                    "on-primary-fixed": "#001c3b",
+                    "warning-text": "#92400E",
+                    "escalated-border": "#C4B5FD",
+                    "surface": "#faf9fc",
+                    "surface-container-low": "#f4f3f7",
+                    "inverse-on-surface": "#f1f0f4",
+                    "secondary-fixed-dim": "#9ccbfc",
+                    "surface-variant": "#e3e2e6",
+                    "error-container": "#ffdad6",
+                    "on-background": "#1a1c1e",
+                    "secondary-fixed": "#cfe5ff",
+                    "on-secondary-container": "#245882",
+                    "success-bg": "#F0FDF4",
+                    "danger-border": "#FCA5A5",
+                    "primary": "#022448",
+                    "primary-container": "#1e3a5f",
+                    "surface-bright": "#faf9fc",
+                    "info-bg": "#EFF6FF",
+                    "primary-fixed-dim": "#adc8f5",
+                    "on-secondary-fixed": "#001d33",
+                    "accent": "#0EA5E9",
+                    "on-tertiary-container": "#c69b5f",
+                    "tertiary-fixed": "#ffddb2",
+                    "escalated-bg": "#FAF5FF",
+                    "success-border": "#86EFAC",
+                    "surface-tint": "#455f87",
+                    "error": "#ba1a1a",
+                    "orange-border": "#FDBA74",
+                    "background": "#faf9fc",
+                    "outline": "#74777f",
+                    "surface-container-high": "#e9e7eb",
+                    "orange-text": "#9A3412",
+                    "secondary-container": "#9fceff",
+                    "grey-800": "#1E293B",
+                    "on-primary-fixed-variant": "#2d486d",
+                    "orange-bg": "#FFF7ED",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-container": "#503300",
+                    "danger-text": "#991B1B",
+                    "on-tertiary-fixed": "#291800",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "grey-400": "#94A3B8",
+                    "primary-fixed": "#d5e3ff",
+                    "on-secondary-fixed-variant": "#104a74",
+                    "surface-container": "#eeedf1",
+                    "on-tertiary-fixed-variant": "#60410c",
+                    "on-surface": "#1a1c1e",
+                    "surface-container-highest": "#e3e2e6",
+                    "on-surface-variant": "#43474e",
+                    "grey-900": "#0F172A",
+                    "on-error-container": "#93000a",
+                    "grey-50": "#F8FAFC",
+                    "on-primary": "#ffffff",
+                    "grey-300": "#CBD5E1",
+                    "tertiary-fixed-dim": "#edbf7f",
+                    "warning-bg": "#FFFBEB",
+                    "grey-100": "#F1F5F9",
+                    "warning-border": "#FCD34D",
+                    "on-error": "#ffffff",
+                    "inverse-surface": "#2f3033",
+                    "success-text": "#166534",
+                    "outline-variant": "#c4c6cf",
+                    "grey-200": "#E2E8F0",
+                    "danger-bg": "#FEF2F2",
+                    "escalated-text": "#6B21A8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "20px",
+                    "2xl": "24px",
+                    "sm": "8px",
+                    "lg": "16px",
+                    "4xl": "48px",
+                    "xs": "4px",
+                    "md": "12px",
+                    "3xl": "32px"
+            },
+            "fontFamily": {
+                    "section-heading": ["Inter"],
+                    "label-overline": ["Inter"],
+                    "display-title": ["Inter"],
+                    "card-heading": ["Inter"],
+                    "mono-data": ["monospace"],
+                    "body-regular": ["Inter"],
+                    "body-small": ["Inter"]
+            },
+            "fontSize": {
+                    "section-heading": ["20px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "label-overline": ["11px", {"lineHeight": "1.0", "letterSpacing": "0.06em", "fontWeight": "500"}],
+                    "display-title": ["32px", {"lineHeight": "1.25", "fontWeight": "700"}],
+                    "card-heading": ["16px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "mono-data": ["13px", {"lineHeight": "1.0", "fontWeight": "400"}],
+                    "body-regular": ["14px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-small": ["13px", {"lineHeight": "1.5", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #F8FAFC;
+        }
+    </style>
+</head>
+<body class="font-body-regular text-on-surface antialiased">
+<!-- Management Portal Sidebar -->
+<nav class="fixed left-0 top-0 h-screen flex flex-col py-6 bg-[#1E3A5F] text-white border-r border-slate-700 w-[240px] z-40 font-['Inter'] text-sm font-medium">
+<div class="text-xl font-black text-white px-4 mb-8">Management Portal</div>
+<div class="flex-1 space-y-1">
+<a class="flex items-center px-4 py-3 bg-white/10 text-white border-l-[3px] border-[#0EA5E9] hover:bg-white/10 transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center px-4 py-3 text-slate-300 hover:bg-white/5 hover:text-white transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="description">description</span>
+                Applications
+            </a>
+<a class="flex items-center px-4 py-3 text-slate-300 hover:bg-white/5 hover:text-white transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="verified_user">verified_user</span>
+                Policy Review
+            </a>
+<a class="flex items-center px-4 py-3 text-slate-300 hover:bg-white/5 hover:text-white transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="analytics">analytics</span>
+                Underwriting
+            </a>
+<a class="flex items-center px-4 py-3 text-slate-300 hover:bg-white/5 hover:text-white transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="warning">warning</span>
+                Risk Analysis
+            </a>
+<a class="flex items-center px-4 py-3 text-slate-300 hover:bg-white/5 hover:text-white transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="settings">settings</span>
+                Settings
+            </a>
+</div>
+<div class="mt-auto border-t border-slate-700 pt-6 space-y-1">
+<a class="flex items-center px-4 py-3 text-slate-300 hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="help">help</span>
+                Help Center
+            </a>
+<a class="flex items-center px-4 py-3 text-slate-300 hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="logout">logout</span>
+                Logout
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-[240px] min-h-screen">
+<!-- Top App Bar -->
+<header class="h-16 flex items-center justify-between px-6 bg-white border-b border-grey-200 sticky top-0 z-30">
+<div class="flex items-center gap-3">
+<h1 class="font-section-heading text-section-heading text-grey-900">Escalated Applications</h1>
+<span class="bg-escalated-bg border border-escalated-border text-escalated-text text-label-overline font-label-overline px-2 py-0.5 rounded-full uppercase">Priority Queue</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="material-symbols-outlined text-grey-600 hover:text-primary transition-colors cursor-pointer" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+</div>
+<div class="flex items-center gap-3 cursor-pointer group">
+<div class="text-right">
+<p class="font-label-overline text-label-overline text-grey-400">Underwriting Manager</p>
+<p class="font-body-small text-body-small text-grey-900 font-semibold group-hover:text-accent transition-colors">Marcus Thorne</p>
+</div>
+<img alt="Manager Profile" class="w-8 h-8 rounded-full border border-grey-200" data-alt="professional portrait of a middle-aged man with glasses and a friendly expression in a modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkMZ4E8vZCpbLYsvj_uzvb9t0vOc2G1vGJ7gp6X9ayTIB8RvykaNmzAs-wsfpdY10Y6Y_yFY6UiVdcvVCfIeJEnHsqAwLaxZRa42h1YReth3ToTc9r5NBF194hwWMISSfZmlh5IGKpu7CG4YKoWkZ0_kcym2V-bZf9wWc2G0SWmkACGLR8DgzcCf1F0cHW0s4fLL31IGi_YrXytST3K7Pk0pRdAf9WZvbh1G64AwIFMDvZS4evhZH-TIElti8RKxblNTPFNHKDhDtU"/>
+</div>
+</div>
+</header>
+<div class="p-2xl space-y-2xl">
+<!-- Stats Row -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-lg">
+<!-- Escalated Stat -->
+<div class="bg-white border border-escalated-border p-lg rounded-lg shadow-sm flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="text-escalated-text font-label-overline text-label-overline uppercase">Escalated</span>
+<span class="material-symbols-outlined text-escalated-text bg-escalated-bg p-1 rounded" data-icon="warning">warning</span>
+</div>
+<div class="mt-md">
+<span class="font-display-title text-display-title text-grey-900">42</span>
+<p class="font-body-small text-body-small text-grey-400">+5 since last login</p>
+</div>
+</div>
+<!-- Approved Stat -->
+<div class="bg-white border border-grey-200 p-lg rounded-lg shadow-sm flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="text-success-text font-label-overline text-label-overline uppercase">Approved</span>
+<span class="material-symbols-outlined text-success-text bg-success-bg p-1 rounded" data-icon="check_circle">check_circle</span>
+</div>
+<div class="mt-md">
+<span class="font-display-title text-display-title text-grey-900">128</span>
+<p class="font-body-small text-body-small text-grey-400">Past 24 hours</p>
+</div>
+</div>
+<!-- Rejected Stat -->
+<div class="bg-white border border-grey-200 p-lg rounded-lg shadow-sm flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="text-danger-text font-label-overline text-label-overline uppercase">Rejected</span>
+<span class="material-symbols-outlined text-danger-text bg-danger-bg p-1 rounded" data-icon="cancel">cancel</span>
+</div>
+<div class="mt-md">
+<span class="font-display-title text-display-title text-grey-900">14</span>
+<p class="font-body-small text-body-small text-grey-400">Risk threshold exceeded</p>
+</div>
+</div>
+<!-- Pending Stat -->
+<div class="bg-white border border-grey-200 p-lg rounded-lg shadow-sm flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="text-warning-text font-label-overline text-label-overline uppercase">Pending</span>
+<span class="material-symbols-outlined text-warning-text bg-warning-bg p-1 rounded" data-icon="pending">pending</span>
+</div>
+<div class="mt-md">
+<span class="font-display-title text-display-title text-grey-900">89</span>
+<p class="font-body-small text-body-small text-grey-400">Awaiting documentation</p>
+</div>
+</div>
+</div>
+<!-- Dashboard Content -->
+<div class="bg-white border border-grey-200 rounded-lg shadow-sm">
+<div class="p-lg border-b border-grey-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-md">
+<div class="flex items-center gap-md">
+<button class="px-md py-sm bg-primary-container text-white rounded font-label-overline text-label-overline uppercase flex items-center gap-xs">
+                            Escalated
+                        </button>
+<button class="px-md py-sm border border-grey-200 text-grey-600 hover:bg-grey-50 rounded font-label-overline text-label-overline uppercase">
+                            Approved
+                        </button>
+<button class="px-md py-sm border border-grey-200 text-grey-600 hover:bg-grey-50 rounded font-label-overline text-label-overline uppercase">
+                            Rejected
+                        </button>
+</div>
+<div class="flex items-center gap-sm">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-grey-400 text-lg" data-icon="search">search</span>
+<input class="pl-xl pr-md py-sm border border-grey-200 rounded text-body-small w-64 focus:ring-1 focus:ring-accent focus:border-accent" placeholder="Filter by ID or Name..." type="text"/>
+</div>
+<button class="p-sm border border-grey-200 rounded hover:bg-grey-50">
+<span class="material-symbols-outlined text-grey-600" data-icon="tune">tune</span>
+</button>
+</div>
+</div>
+<!-- Data Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-grey-50 border-b border-grey-100">
+<tr>
+<th class="px-lg py-md font-label-overline text-label-overline text-grey-600 uppercase tracking-wider">Application ID</th>
+<th class="px-lg py-md font-label-overline text-label-overline text-grey-600 uppercase tracking-wider">Applicant</th>
+<th class="px-lg py-md font-label-overline text-label-overline text-grey-600 uppercase tracking-wider">Type</th>
+<th class="px-lg py-md font-label-overline text-label-overline text-grey-600 uppercase tracking-wider">Risk Score</th>
+<th class="px-lg py-md font-label-overline text-label-overline text-grey-600 uppercase tracking-wider">Status</th>
+<th class="px-lg py-md font-label-overline text-label-overline text-grey-600 uppercase tracking-wider">Submission Date</th>
+<th class="px-lg py-md text-right"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-grey-100">
+<!-- Row 1 (Escalated) -->
+<tr class="hover:bg-grey-50 transition-colors cursor-pointer">
+<td class="px-lg py-md font-mono-data text-mono-data text-primary">#APP-92301</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-grey-200 flex items-center justify-center text-xs font-bold text-grey-600">JS</div>
+<div>
+<p class="font-body-regular text-grey-900 font-semibold">Jonathan Sterling</p>
+<p class="text-[11px] text-grey-400">Commercial Auto</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md font-body-small text-grey-600">Enterprise Fleet</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span class="font-mono-data text-danger-text font-bold">88 / 100</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<div class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-escalated-bg border border-escalated-border">
+<span class="w-1.5 h-1.5 rounded-full bg-escalated-text"></span>
+<span class="text-[11px] font-bold text-escalated-text uppercase">Escalated</span>
+</div>
+</td>
+<td class="px-lg py-md font-mono-data text-grey-400 text-xs">Oct 24, 2023 09:12 AM</td>
+<td class="px-lg py-md text-right">
+<button class="p-sm text-grey-400 hover:text-accent transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 (Approved) -->
+<tr class="hover:bg-grey-50 transition-colors cursor-pointer">
+<td class="px-lg py-md font-mono-data text-mono-data text-primary">#APP-92314</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-grey-200 flex items-center justify-center text-xs font-bold text-grey-600">LR</div>
+<div>
+<p class="font-body-regular text-grey-900 font-semibold">Linda Rodriguez</p>
+<p class="text-[11px] text-grey-400">Professional Liability</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md font-body-small text-grey-600">Sole Proprietor</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-success-border"></span>
+<span class="font-mono-data text-success-text font-bold">24 / 100</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<div class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-success-bg border border-success-border">
+<span class="w-1.5 h-1.5 rounded-full bg-success-text"></span>
+<span class="text-[11px] font-bold text-success-text uppercase">Approved</span>
+</div>
+</td>
+<td class="px-lg py-md font-mono-data text-grey-400 text-xs">Oct 24, 2023 11:45 AM</td>
+<td class="px-lg py-md text-right">
+<button class="p-sm text-grey-400 hover:text-accent transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 (Rejected) -->
+<tr class="hover:bg-grey-50 transition-colors cursor-pointer">
+<td class="px-lg py-md font-mono-data text-mono-data text-primary">#APP-92329</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-grey-200 flex items-center justify-center text-xs font-bold text-grey-600">MB</div>
+<div>
+<p class="font-body-regular text-grey-900 font-semibold">Mark Bennington</p>
+<p class="text-[11px] text-grey-400">Workers Comp</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md font-body-small text-grey-600">Manufacturing</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span class="font-mono-data text-danger-text font-bold">95 / 100</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<div class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-danger-bg border border-danger-border">
+<span class="w-1.5 h-1.5 rounded-full bg-danger-text"></span>
+<span class="text-[11px] font-bold text-danger-text uppercase">Rejected</span>
+</div>
+</td>
+<td class="px-lg py-md font-mono-data text-grey-400 text-xs">Oct 24, 2023 01:22 PM</td>
+<td class="px-lg py-md text-right">
+<button class="p-sm text-grey-400 hover:text-accent transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 (Escalated) -->
+<tr class="hover:bg-grey-50 transition-colors cursor-pointer">
+<td class="px-lg py-md font-mono-data text-mono-data text-primary">#APP-92340</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-grey-200 flex items-center justify-center text-xs font-bold text-grey-600">SK</div>
+<div>
+<p class="font-body-regular text-grey-900 font-semibold">Sarah Kessler</p>
+<p class="text-[11px] text-grey-400">Cyber Liability</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md font-body-small text-grey-600">Tech Startup</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-orange-border"></span>
+<span class="font-mono-data text-orange-text font-bold">72 / 100</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<div class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-escalated-bg border border-escalated-border">
+<span class="w-1.5 h-1.5 rounded-full bg-escalated-text"></span>
+<span class="text-[11px] font-bold text-escalated-text uppercase">Escalated</span>
+</div>
+</td>
+<td class="px-lg py-md font-mono-data text-grey-400 text-xs">Oct 24, 2023 03:05 PM</td>
+<td class="px-lg py-md text-right">
+<button class="p-sm text-grey-400 hover:text-accent transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer -->
+<div class="px-lg py-md border-t border-grey-100 flex items-center justify-between">
+<p class="font-body-small text-body-small text-grey-400">Showing 1-10 of 42 results</p>
+<div class="flex items-center gap-xs">
+<button class="p-sm border border-grey-200 rounded hover:bg-grey-50 disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-lg" data-icon="first_page">first_page</span>
+</button>
+<button class="p-sm border border-grey-200 rounded hover:bg-grey-50 disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-lg" data-icon="navigate_before">navigate_before</span>
+</button>
+<div class="px-md">
+<span class="font-body-small text-body-small text-grey-900 font-bold">1</span>
+<span class="font-body-small text-body-small text-grey-400 px-xs">/</span>
+<span class="font-body-small text-body-small text-grey-400">5</span>
+</div>
+<button class="p-sm border border-grey-200 rounded hover:bg-grey-50">
+<span class="material-symbols-outlined text-lg" data-icon="navigate_next">navigate_next</span>
+</button>
+<button class="p-sm border border-grey-200 rounded hover:bg-grey-50">
+<span class="material-symbols-outlined text-lg" data-icon="last_page">last_page</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Management Insights Bento Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-2xl">
+<!-- AI Risk Summary -->
+<div class="lg:col-span-2 bg-white border border-grey-200 rounded-lg shadow-sm p-2xl">
+<div class="flex items-center justify-between mb-lg">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-accent" data-icon="auto_awesome">auto_awesome</span>
+<h2 class="font-card-heading text-card-heading text-grey-900">AI Risk Summary: Escalated Applications</h2>
+</div>
+<button class="text-accent hover:underline text-body-small font-semibold">View Detail Report</button>
+</div>
+<div class="space-y-md">
+<div class="p-md bg-grey-50 rounded-lg border-l-4 border-accent">
+<p class="font-body-regular text-grey-800 italic">"The current escalation volume is 12% higher than seasonal averages. 65% of flagged applications are due to inconsistent historical loss data in the 'Commercial Auto' segment."</p>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<div class="p-md border border-grey-100 rounded-lg">
+<p class="text-label-overline font-label-overline text-grey-400 uppercase">Primary Risk Factor</p>
+<p class="font-body-small font-bold text-grey-900">Historical Loss Mismatch</p>
+</div>
+<div class="p-md border border-grey-100 rounded-lg">
+<p class="text-label-overline font-label-overline text-grey-400 uppercase">Est. Review Time</p>
+<p class="font-body-small font-bold text-grey-900">4.2 Hours / Avg</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Regional Heatmap Placeholder -->
+<div class="bg-white border border-grey-200 rounded-lg shadow-sm p-2xl">
+<h2 class="font-card-heading text-card-heading text-grey-900 mb-lg">Escalation Concentration</h2>
+<div class="aspect-square bg-grey-50 rounded-lg flex items-center justify-center relative overflow-hidden">
+<img alt="Regional Risk Heatmap" class="w-full h-full object-cover opacity-60" data-alt="minimalist topographic map of north america with glowing red and orange hotspots highlighting high-risk insurance zones" data-location="North America" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSXKxCB86WTqnDwDDzjMw9OX7nt1w__uYoB6tUglJWJUNkOrVTOzHNPR8O1FGs1Z-dYFfPCWgg1FmfoXJiKsBuigkXIUWLhzS-W_P05Qx7aghUq6XxT_J98KJ4SLiobkWlmuNYE-W7MAp-Bw_5hF2PW1DDQVRdmRZpHNCuNp1Qva5i20TZ3ZUpE0QoFxIPcZ4ONgGUFPvI1pjUOwyjRU0yuxLWiyynpkTWJE_WX5bRHUfODFR9Dwf3pDq557Ol0Jsim2vKzn5BAu64"/>
+<div class="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent"></div>
+<div class="absolute bottom-md left-md right-md bg-white/90 backdrop-blur p-sm rounded border border-grey-100 flex items-center justify-between">
+<span class="font-body-small text-grey-800 font-bold">Northeast Region</span>
+<span class="text-danger-text font-bold">High Density</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
