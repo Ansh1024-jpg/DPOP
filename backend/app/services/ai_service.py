@@ -254,13 +254,30 @@ def generate_summary(fields: dict[str, Any], flags: list[dict[str, Any]]) -> dic
     }
 
 
+def _flatten_extracted(raw: dict[str, Any]) -> dict[str, Any]:
+    """Normalize Gemini output to flat dot-notation keys.
+
+    Gemini sometimes returns {"occupation": {"occupation": "...", ...}} instead of
+    the requested {"occupation.occupation": "..."} flat format. This converts either
+    shape to the flat format that the rest of the codebase expects.
+    """
+    flat: dict[str, Any] = {}
+    for key, value in raw.items():
+        if isinstance(value, dict):
+            for subkey, subvalue in value.items():
+                flat[f"{key}.{subkey}"] = subvalue
+        else:
+            flat[key] = value
+    return flat
+
+
 def _extract_with_gemini(pdf_bytes: bytes) -> dict[str, Any]:
     import base64
 
     import google.generativeai as genai  # type: ignore[import]
 
     genai.configure(api_key=settings.gemini_api_key)
-    model = genai.GenerativeModel("gemini-2.5-flash-preview-05-20")
+    model = genai.GenerativeModel("gemini-2.5-flash-lite")
     prompt = (
         "Extract the following fields from this insurance application document and return a JSON "
         "object (no markdown fences, no extra text). Use null for any missing fields.\n\n"
@@ -290,7 +307,7 @@ def _extract_with_gemini(pdf_bytes: bytes) -> dict[str, Any]:
     response = model.generate_content(
         [prompt, {"inline_data": {"mime_type": "application/pdf", "data": b64}}]
     )
-    return json.loads(response.text)
+    return _flatten_extracted(json.loads(response.text))
 
 
 def _simulate_extraction() -> dict[str, Any]:

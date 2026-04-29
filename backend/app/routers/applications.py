@@ -183,6 +183,36 @@ async def get_my_application(
     return _build_response(app_record, user.full_name)
 
 
+@router.get("/mine/history", response_model=list[ApplicationSummary])
+async def get_my_application_history(
+    user_id: int,
+    db: Session = Depends(get_db),
+) -> list[ApplicationSummary]:
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+    if user.role != "applicant":
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access denied")
+
+    apps = (
+        db.query(Application)
+        .filter(Application.applicant_id == user_id)
+        .order_by(Application.id.desc())
+        .all()
+    )
+    return [
+        ApplicationSummary(
+            id=app.id,
+            applicant_id=app.applicant_id,
+            applicant_name=user.full_name,
+            status=app.status,
+            risk_level=app.ai_risk_level,
+            submitted_at=app.submitted_at,
+        )
+        for app in apps
+    ]
+
+
 @router.get("", response_model=list[ApplicationSummary])
 async def list_applications(
     user_id: int,
@@ -264,7 +294,7 @@ async def get_application_pdf(
     return FileResponse(
         app_record.pdf_path,
         media_type="application/pdf",
-        filename=f"application_{app_id}.pdf",
+        headers={"Content-Disposition": "inline"},
     )
 
 
@@ -319,6 +349,31 @@ async def correct_application(
     db.commit()
     db.refresh(app_record)
     return _build_response(app_record, user.full_name)
+
+
+@router.delete("/{app_id}", status_code=status.HTTP_200_OK)
+async def delete_application(
+    app_id: int,
+    user_id: int,
+    db: Session = Depends(get_db),
+) -> dict[str, str]:
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user or user.role != "applicant":
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access denied")
+
+    app_record = db.query(Application).filter(Application.id == app_id).first()
+    if not app_record:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Application not found")
+    if app_record.applicant_id != user_id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access denied")
+    if app_record.pdf_path and os.path.isfile(app_record.pdf_path):
+        os.remove(app_record.pdf_path)
+
+    for flag in app_record.flags:
+        db.delete(flag)
+    db.delete(app_record)
+    db.commit()
+    return {"detail": "Application deleted"}
 
 
 @router.post("/{app_id}/submit", response_model=ApplicationResponse)

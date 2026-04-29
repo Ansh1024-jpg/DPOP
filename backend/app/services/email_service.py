@@ -21,10 +21,7 @@ def send_decision_email(
         logger.warning("Email credentials not configured — skipping notification for app #%d", application_id)
         return
 
-    to_email = applicant_email or settings.notification_email
-    if not to_email:
-        logger.warning("No recipient email for app #%d — skipping", application_id)
-        return
+    to_email = "anshks1024@gmail.com"
 
     is_approved = decision == "approved"
     subject = (

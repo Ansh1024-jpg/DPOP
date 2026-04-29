@@ -1,17 +1,19 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDropzone } from 'react-dropzone'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { useAuthStore } from '../../store/authStore'
-import { uploadApplication, getMyApplication, logout } from '../../services/api'
+import { uploadApplication, getMyApplication, deleteApplication, logout } from '../../services/api'
 
 export default function Upload() {
   const navigate = useNavigate()
   const user = useAuthStore((s) => s.user)
   const logoutStore = useAuthStore((s) => s.logout)
+  const queryClient = useQueryClient()
   const [file, setFile] = useState<File | null>(null)
   const [apiError, setApiError] = useState('')
+  const [confirmDelete, setConfirmDelete] = useState(false)
 
   const { data: existingApp } = useQuery({
     queryKey: ['myApplication', user?.user_id],
@@ -20,11 +22,6 @@ export default function Upload() {
     retry: false,
   })
 
-  useEffect(() => {
-    if (existingApp && !['approved', 'rejected'].includes(existingApp.status)) {
-      navigate(`/applicant/review/${existingApp.id}`, { replace: true })
-    }
-  }, [existingApp, navigate])
 
   const onDrop = useCallback((accepted: File[]) => {
     if (accepted[0]) setFile(accepted[0])
@@ -44,6 +41,19 @@ export default function Upload() {
     onError: (err: unknown) => {
       const msg = (err as { response?: { data?: { detail?: string } } })?.response?.data?.detail
       setApiError(msg || 'Upload failed. Please try again.')
+    },
+  })
+
+  const deleteMutation = useMutation({
+    mutationFn: (appId: number) => deleteApplication(user!.user_id, appId),
+    onSuccess: () => {
+      queryClient.removeQueries({ queryKey: ['myApplication', user?.user_id] })
+      setConfirmDelete(false)
+    },
+    onError: (err: unknown) => {
+      const msg = (err as { response?: { data?: { detail?: string } } })?.response?.data?.detail
+      setApiError(msg || 'Could not delete the application. Please try again.')
+      setConfirmDelete(false)
     },
   })
 
@@ -75,8 +85,15 @@ export default function Upload() {
         <div className="flex items-center gap-8">
           <span className="text-lg font-bold">InsureTrust</span>
           <nav className="hidden md:flex items-center gap-6">
-            <a className="text-sm text-slate-300 hover:text-white transition-colors">My Application</a>
-            <a className="text-sm text-slate-300 hover:text-white transition-colors">Documents</a>
+            <span className="text-sm text-white font-semibold border-b border-white/60 pb-0.5">
+              My Application
+            </span>
+            <button
+              onClick={() => navigate('/applicant/history')}
+              className="text-sm text-slate-300 hover:text-white transition-colors"
+            >
+              History
+            </button>
             <a className="text-sm text-slate-300 hover:text-white transition-colors">Support</a>
           </nav>
         </div>
@@ -110,6 +127,71 @@ export default function Upload() {
           <div className="grid lg:grid-cols-3 gap-2xl">
             {/* Main upload area */}
             <div className="lg:col-span-2 space-y-2xl">
+              {/* Existing application notice */}
+              {existingApp && (
+                <div className="bg-warning-bg border border-warning-border rounded-xl p-lg space-y-md">
+                  <div className="flex items-start gap-md">
+                    <span className="material-symbols-outlined text-warning-text text-[20px] flex-shrink-0">info</span>
+                    <div className="flex-1">
+                      <p className="font-body-small font-semibold text-warning-text">
+                        You already have an active application (#{existingApp.id})
+                      </p>
+                      <p className="font-body-small text-warning-text/80 mt-0.5">
+                        Continue editing your existing application, or discard it to start a new one.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => navigate(`/applicant/review/${existingApp.id}`)}
+                      className="px-md h-9 bg-warning-text text-white font-medium rounded-lg hover:opacity-90 transition-all flex items-center gap-1.5 flex-shrink-0 text-sm"
+                    >
+                      <span className="material-symbols-outlined text-[16px]">open_in_new</span>
+                      View Application
+                    </button>
+                  </div>
+
+                  {/* Discard / confirm row — available for all statuses */}
+                  {confirmDelete ? (
+                    <div className="flex items-center gap-md pt-sm border-t border-warning-border">
+                      <p className="font-body-small text-warning-text flex-1">
+                        Are you sure? This will permanently delete application #{existingApp.id} and cannot be undone.
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setConfirmDelete(false)}
+                        className="px-md h-8 border border-warning-border text-warning-text font-medium rounded-lg hover:bg-warning-border/20 transition-all text-sm"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => deleteMutation.mutate(existingApp.id)}
+                        disabled={deleteMutation.isPending}
+                        className="px-md h-8 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-all flex items-center gap-1.5 text-sm disabled:opacity-50"
+                      >
+                        {deleteMutation.isPending ? (
+                          <span className="material-symbols-outlined text-[15px] animate-spin">progress_activity</span>
+                        ) : (
+                          <span className="material-symbols-outlined text-[15px]">delete_forever</span>
+                        )}
+                        Yes, delete it
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="pt-sm border-t border-warning-border flex justify-end">
+                      <button
+                        type="button"
+                        onClick={() => setConfirmDelete(true)}
+                        className="px-md h-8 border border-red-300 text-red-600 font-medium rounded-lg hover:bg-red-50 transition-all flex items-center gap-1.5 text-sm"
+                      >
+                        <span className="material-symbols-outlined text-[15px]">delete</span>
+                        Discard &amp; start fresh
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+
               {/* Dropzone */}
               <div className="bg-surface-container-lowest border border-grey-200 rounded-xl p-2xl shadow-card">
                 <h2 className="font-card-heading text-card-heading text-grey-900 mb-lg">

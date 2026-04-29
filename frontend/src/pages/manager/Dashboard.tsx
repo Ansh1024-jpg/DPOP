@@ -48,7 +48,17 @@ export default function ManagerDashboard() {
     enabled: !!user,
   })
 
+  const { data: approvedApps = [], isLoading: isLoadingApproved } = useQuery({
+    queryKey: ['applications', user?.user_id, 'approved'],
+    queryFn: () => listApplications(user!.user_id, 'approved'),
+    enabled: !!user,
+  })
+
   const filtered = apps.filter(
+    (a) => !search || a.applicant_name.toLowerCase().includes(search.toLowerCase()),
+  )
+
+  const filteredApproved = approvedApps.filter(
     (a) => !search || a.applicant_name.toLowerCase().includes(search.toLowerCase()),
   )
 
@@ -84,12 +94,12 @@ export default function ManagerDashboard() {
       border: 'border-orange-200',
     },
     {
-      label: 'Low Risk',
-      value: riskCounts.low,
-      icon: 'check_circle',
-      bg: 'bg-green-50',
-      accent: 'text-green-600',
-      border: 'border-green-200',
+      label: 'Approved',
+      value: approvedApps.length,
+      icon: 'verified',
+      bg: 'bg-success-bg',
+      accent: 'text-success-text',
+      border: 'border-success-border',
     },
   ]
 
@@ -305,6 +315,96 @@ export default function ManagerDashboard() {
                 )}
               </tbody>
             </table>
+          </div>
+
+          {/* Approved applications section */}
+          <div className="mt-3xl">
+            <div className="flex items-center gap-sm mb-lg">
+              <span className="w-2 h-2 rounded-full bg-green-500" />
+              <h2 className="font-card-heading text-card-heading text-grey-900">
+                Approved Applications
+              </h2>
+              <span className="px-2 py-0.5 rounded-full bg-success-bg text-success-text text-xs font-semibold">
+                {approvedApps.length}
+              </span>
+            </div>
+
+            <div className="bg-white border border-grey-200 rounded-xl shadow-card overflow-hidden">
+              <table className="w-full">
+                <thead className="bg-grey-50 border-b border-grey-200">
+                  <tr>
+                    {['Application', 'Applicant', 'Risk Score', 'Submitted'].map((h) => (
+                      <th
+                        key={h}
+                        className="px-lg py-md text-left font-body-small font-semibold text-grey-500 uppercase tracking-wide"
+                      >
+                        {h}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-grey-100">
+                  {isLoadingApproved ? (
+                    <tr>
+                      <td colSpan={4} className="px-lg py-2xl text-center">
+                        <span className="material-symbols-outlined text-[32px] text-grey-300 animate-spin">
+                          progress_activity
+                        </span>
+                      </td>
+                    </tr>
+                  ) : filteredApproved.length === 0 ? (
+                    <tr>
+                      <td colSpan={4} className="px-lg py-2xl text-center">
+                        <span className="material-symbols-outlined text-[40px] text-grey-300 block mb-sm">
+                          verified
+                        </span>
+                        <p className="font-body-small text-grey-400">No approved applications yet</p>
+                      </td>
+                    </tr>
+                  ) : (
+                    filteredApproved.map((app) => (
+                      <tr
+                        key={app.id}
+                        className="hover:bg-grey-50 transition-colors cursor-pointer"
+                        onClick={() => navigate(`/manager/application/${app.id}`)}
+                      >
+                        <td className="px-lg py-md">
+                          <span className="font-body-small font-semibold text-grey-500">
+                            #{app.id}
+                          </span>
+                        </td>
+                        <td className="px-lg py-md">
+                          <div className="flex items-center gap-sm">
+                            <div className="w-8 h-8 rounded-full bg-success-bg flex items-center justify-center text-success-text text-xs font-bold flex-shrink-0">
+                              {app.applicant_name
+                                .split(' ')
+                                .map((n) => n[0])
+                                .join('')
+                                .slice(0, 2)
+                                .toUpperCase()}
+                            </div>
+                            <div>
+                              <p className="font-body-small font-semibold text-grey-900">
+                                {app.applicant_name}
+                              </p>
+                              <p className="text-xs text-grey-400">Insurance Applicant</p>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-lg py-md">
+                          <RiskScore risk={app.risk_level} />
+                        </td>
+                        <td className="px-lg py-md">
+                          <span className="font-body-small text-grey-500">
+                            {formatDate(app.submitted_at)}
+                          </span>
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

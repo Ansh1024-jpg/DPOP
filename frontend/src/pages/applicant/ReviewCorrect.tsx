@@ -6,6 +6,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useAuthStore } from '../../store/authStore'
 import {
   correctApplication,
+  deleteApplication,
   getApplication,
   logout as logoutApi,
   submitApplication,
@@ -178,6 +179,7 @@ export default function ReviewCorrect() {
     nominee: false,
   })
   const [apiError, setApiError] = useState('')
+  const [confirmDelete, setConfirmDelete] = useState(false)
   const initialized = useRef(false)
 
   const appId = id ? parseInt(id) : 0
@@ -238,6 +240,19 @@ export default function ReviewCorrect() {
     onError: (err: unknown) => {
       const msg = (err as { response?: { data?: { detail?: string } } })?.response?.data?.detail
       setApiError(msg || 'Submit failed. Resolve all issues first.')
+    },
+  })
+
+  const deleteMutation = useMutation({
+    mutationFn: () => deleteApplication(user!.user_id, appId),
+    onSuccess: () => {
+      queryClient.removeQueries({ queryKey: ['myApplication', user?.user_id] })
+      navigate('/applicant/upload', { replace: true })
+    },
+    onError: (err: unknown) => {
+      const msg = (err as { response?: { data?: { detail?: string } } })?.response?.data?.detail
+      setApiError(msg || 'Could not delete the application. Please try again.')
+      setConfirmDelete(false)
     },
   })
 
@@ -426,15 +441,28 @@ export default function ReviewCorrect() {
         <div className="flex items-center gap-8">
           <span className="text-lg font-bold">InsureTrust</span>
           <nav className="hidden md:flex items-center gap-6">
-            <a className="text-sm text-slate-300 hover:text-white transition-colors">
+            <span className="text-sm text-white font-semibold border-b border-white/60 pb-0.5">
               My Application
-            </a>
-            <a className="text-sm text-slate-300 hover:text-white transition-colors">Documents</a>
+            </span>
+            <button
+              onClick={() => navigate('/applicant/history')}
+              className="text-sm text-slate-300 hover:text-white transition-colors"
+            >
+              History
+            </button>
             <a className="text-sm text-slate-300 hover:text-white transition-colors">Support</a>
           </nav>
         </div>
         <div className="flex items-center gap-3">
           <span className="text-sm text-slate-300 hidden sm:block">{user?.full_name}</span>
+          <button
+            onClick={() => navigate('/applicant/upload')}
+            className="p-2 rounded-full hover:bg-white/10 transition-all"
+            aria-label="Go to upload page"
+            title="Back to Upload"
+          >
+            <span className="material-symbols-outlined text-[20px]">home</span>
+          </button>
           <button
             onClick={handleLogout}
             className="p-2 rounded-full hover:bg-white/10 transition-all"
@@ -506,7 +534,43 @@ export default function ReviewCorrect() {
                 Review Your Application
               </h1>
             </div>
-            <StatusBadge status={app.status} size="md" />
+            <div className="flex items-center gap-md">
+              {confirmDelete ? (
+                <div className="flex items-center gap-sm bg-red-50 border border-red-200 rounded-xl px-md py-sm">
+                  <span className="font-body-small text-red-700 font-semibold">Delete this application?</span>
+                  <button
+                    type="button"
+                    onClick={() => setConfirmDelete(false)}
+                    className="px-sm h-8 border border-red-300 text-red-600 font-medium rounded-lg hover:bg-red-100 transition-all text-sm"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => deleteMutation.mutate()}
+                    disabled={deleteMutation.isPending}
+                    className="px-sm h-8 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-all flex items-center gap-1.5 text-sm disabled:opacity-50"
+                  >
+                    {deleteMutation.isPending ? (
+                      <span className="material-symbols-outlined text-[15px] animate-spin">progress_activity</span>
+                    ) : (
+                      <span className="material-symbols-outlined text-[15px]">delete_forever</span>
+                    )}
+                    Yes, delete
+                  </button>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setConfirmDelete(true)}
+                  className="px-md h-9 border border-red-300 text-red-600 font-medium rounded-lg hover:bg-red-50 transition-all flex items-center gap-1.5 text-sm"
+                >
+                  <span className="material-symbols-outlined text-[16px]">delete</span>
+                  Delete Application
+                </button>
+              )}
+              <StatusBadge status={app.status} size="md" />
+            </div>
           </div>
 
           {apiError && (

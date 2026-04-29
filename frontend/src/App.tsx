@@ -6,6 +6,7 @@ import type { AuthUser } from './types/index'
 import Login from './pages/Login'
 import Upload from './pages/applicant/Upload'
 import ReviewCorrect from './pages/applicant/ReviewCorrect'
+import ApplicationHistory from './pages/applicant/History'
 import PolicyManagerDashboard from './pages/policy-manager/Dashboard'
 import PolicyManagerApplicationDetail from './pages/policy-manager/ApplicationDetail'
 import ManagerDashboard from './pages/manager/Dashboard'
@@ -50,6 +51,14 @@ export default function App() {
         element={
           <ProtectedRoute allowedRoles={['applicant']}>
             <ReviewCorrect />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/applicant/history"
+        element={
+          <ProtectedRoute allowedRoles={['applicant']}>
+            <ApplicationHistory />
           </ProtectedRoute>
         }
       />

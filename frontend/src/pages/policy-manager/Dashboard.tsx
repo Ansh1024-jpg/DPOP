@@ -52,10 +52,20 @@ export default function PolicyManagerDashboard() {
     enabled: !!user,
   })
 
+  const { data: approvedApps = [], isLoading: isLoadingApproved } = useQuery({
+    queryKey: ['applications', user?.user_id, 'approved'],
+    queryFn: () => listApplications(user!.user_id, 'approved'),
+    enabled: !!user,
+  })
+
   const filteredByStatus =
     statusFilter === 'all' ? allApps : allApps.filter((a) => a.status === statusFilter)
 
   const filtered = filteredByStatus.filter(
+    (a) => !search || a.applicant_name.toLowerCase().includes(search.toLowerCase()),
+  )
+
+  const filteredApproved = approvedApps.filter(
     (a) => !search || a.applicant_name.toLowerCase().includes(search.toLowerCase()),
   )
 
@@ -68,7 +78,7 @@ export default function PolicyManagerDashboard() {
 
   const metricCards = [
     {
-      label: 'Total Applications',
+      label: 'Total in Queue',
       value: counts.all,
       icon: 'description',
       accent: 'text-primary',
@@ -89,11 +99,11 @@ export default function PolicyManagerDashboard() {
       bg: 'bg-warning-bg',
     },
     {
-      label: 'Corrections Made',
-      value: counts.corrections_made,
-      icon: 'edit',
-      accent: 'text-info-text',
-      bg: 'bg-info-bg',
+      label: 'Approved',
+      value: approvedApps.length,
+      icon: 'check_circle',
+      accent: 'text-success-text',
+      bg: 'bg-success-bg',
     },
   ]
 
@@ -277,6 +287,93 @@ export default function PolicyManagerDashboard() {
                 </p>
               </div>
             )}
+          </div>
+
+          {/* Approved applications section */}
+          <div className="mt-3xl">
+            <div className="flex items-center gap-sm mb-lg">
+              <span className="w-2 h-2 rounded-full bg-green-500" />
+              <h2 className="font-card-heading text-card-heading text-grey-900">
+                Approved Applications
+              </h2>
+              <span className="px-2 py-0.5 rounded-full bg-success-bg text-success-text text-xs font-semibold">
+                {approvedApps.length}
+              </span>
+            </div>
+
+            <div className="bg-white border border-grey-200 rounded-xl shadow-card overflow-hidden">
+              <table className="w-full">
+                <thead className="bg-grey-50 border-b border-grey-200">
+                  <tr>
+                    {['#', 'Applicant Name', 'Submitted', 'Risk Level'].map((h) => (
+                      <th
+                        key={h}
+                        className="px-lg py-md text-left font-body-small font-semibold text-grey-500 uppercase tracking-wide"
+                      >
+                        {h}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-grey-100">
+                  {isLoadingApproved ? (
+                    <tr>
+                      <td colSpan={4} className="px-lg py-2xl text-center">
+                        <span className="material-symbols-outlined text-[32px] text-grey-300 animate-spin">
+                          progress_activity
+                        </span>
+                      </td>
+                    </tr>
+                  ) : filteredApproved.length === 0 ? (
+                    <tr>
+                      <td colSpan={4} className="px-lg py-2xl text-center">
+                        <span className="material-symbols-outlined text-[40px] text-grey-300 block mb-sm">
+                          check_circle
+                        </span>
+                        <p className="font-body-small text-grey-400">No approved applications yet</p>
+                      </td>
+                    </tr>
+                  ) : (
+                    filteredApproved.map((app) => (
+                      <tr
+                        key={app.id}
+                        className="hover:bg-grey-50 transition-colors cursor-pointer"
+                        onClick={() => navigate(`/policy-manager/application/${app.id}`)}
+                      >
+                        <td className="px-lg py-md">
+                          <span className="font-body-small font-semibold text-grey-500">
+                            #{app.id}
+                          </span>
+                        </td>
+                        <td className="px-lg py-md">
+                          <div className="flex items-center gap-sm">
+                            <div className="w-8 h-8 rounded-full bg-success-bg flex items-center justify-center text-success-text text-xs font-bold flex-shrink-0">
+                              {app.applicant_name
+                                .split(' ')
+                                .map((n) => n[0])
+                                .join('')
+                                .slice(0, 2)
+                                .toUpperCase()}
+                            </div>
+                            <span className="font-body-small font-semibold text-grey-900">
+                              {app.applicant_name}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="px-lg py-md">
+                          <span className="font-body-small text-grey-500">
+                            {formatDate(app.submitted_at)}
+                          </span>
+                        </td>
+                        <td className="px-lg py-md">
+                          <RiskPill risk={app.risk_level} />
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

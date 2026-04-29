@@ -37,6 +37,13 @@ export async function getMyApplication(userId: number): Promise<ApplicationRespo
   return data
 }
 
+export async function getMyApplicationHistory(userId: number): Promise<ApplicationSummary[]> {
+  const { data } = await api.get<ApplicationSummary[]>('/api/applications/mine/history', {
+    params: { user_id: userId },
+  })
+  return data
+}
+
 export async function listApplications(
   userId: number,
   statusFilter?: string,
@@ -80,6 +87,10 @@ export async function submitApplication(
     { params: { user_id: userId } },
   )
   return data
+}
+
+export async function deleteApplication(userId: number, appId: number): Promise<void> {
+  await api.delete(`/api/applications/${appId}`, { params: { user_id: userId } })
 }
 
 export async function approveApplication(
