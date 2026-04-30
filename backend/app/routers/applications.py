@@ -58,6 +58,11 @@ def _get_field(extracted: dict[str, Any], section: str, field: str) -> Any:
     return extracted.get(field)
 
 
+def _extracted_full_name(app: Application) -> str | None:
+    extracted: dict[str, Any] = json.loads(app.extracted_data) if app.extracted_data else {}
+    return _get_field(extracted, "personal", "full_name") or None
+
+
 def _build_response(app: Application, applicant_name: str) -> ApplicationResponse:
     extracted: dict[str, Any] = json.loads(app.extracted_data) if app.extracted_data else {}
 
@@ -67,7 +72,7 @@ def _build_response(app: Application, applicant_name: str) -> ApplicationRespons
     return ApplicationResponse(
         id=app.id,
         applicant_id=app.applicant_id,
-        applicant_name=applicant_name,
+        applicant_name=_get_field(extracted, "personal", "full_name") or applicant_name,
         status=app.status,
         risk_level=app.ai_risk_level,
         ai_summary=app.ai_summary,
@@ -241,7 +246,7 @@ async def list_applications(
         ApplicationSummary(
             id=app.id,
             applicant_id=app.applicant_id,
-            applicant_name=name,
+            applicant_name=_extracted_full_name(app) or name,
             status=app.status,
             risk_level=app.ai_risk_level,
             submitted_at=app.submitted_at,

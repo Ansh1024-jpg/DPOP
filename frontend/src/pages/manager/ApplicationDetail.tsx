@@ -187,7 +187,6 @@ export default function ManagerApplicationDetail() {
                 .slice(0, 2)
                 .toUpperCase()}
             </div>
-            <span className="text-sm text-slate-300 hidden sm:block">{user?.full_name}</span>
           </div>
           <button
             onClick={handleLogout}
@@ -261,6 +260,18 @@ export default function ManagerApplicationDetail() {
               </div>
             </div>
           )}
+
+          {/* Document Preview */}
+          <div className="bg-grey-900 rounded-xl overflow-hidden mb-xl">
+            <div className="px-lg py-md border-b border-white/10">
+              <h2 className="font-card-heading text-card-heading text-white">Application Document</h2>
+            </div>
+            <iframe
+              src={`/api/applications/${appId}/pdf?user_id=${user!.user_id}`}
+              title="Application document"
+              className="w-full h-[520px] border-0"
+            />
+          </div>
 
           {/* Three-column grid */}
           <div className="grid grid-cols-12 gap-xl">

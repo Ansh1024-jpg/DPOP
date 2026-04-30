@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.database import get_db
@@ -20,6 +20,7 @@ async def approve_application(
     app_id: int,
     user_id: int,
     body: ApproveRequest,
+    background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
 ) -> ApplicationResponse:
     user = db.query(User).filter(User.id == user_id).first()
@@ -53,7 +54,8 @@ async def approve_application(
 
     applicant = db.query(User).filter(User.id == app_record.applicant_id).first()
     if applicant:
-        send_decision_email(
+        background_tasks.add_task(
+            send_decision_email,
             applicant_name=applicant.full_name,
             applicant_email=applicant.email or "",
             application_id=app_record.id,
@@ -68,6 +70,7 @@ async def reject_application(
     app_id: int,
     user_id: int,
     body: RejectRequest,
+    background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
 ) -> ApplicationResponse:
     user = db.query(User).filter(User.id == user_id).first()
@@ -93,7 +96,8 @@ async def reject_application(
 
     applicant = db.query(User).filter(User.id == app_record.applicant_id).first()
     if applicant:
-        send_decision_email(
+        background_tasks.add_task(
+            send_decision_email,
             applicant_name=applicant.full_name,
             applicant_email=applicant.email or "",
             application_id=app_record.id,

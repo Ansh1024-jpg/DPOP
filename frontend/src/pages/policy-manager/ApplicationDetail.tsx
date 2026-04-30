@@ -236,22 +236,11 @@ export default function PolicyManagerApplicationDetail() {
                 <div className="px-lg py-md border-b border-white/10">
                   <h2 className="font-card-heading text-card-heading text-white">Document</h2>
                 </div>
-                <div className="p-2xl flex flex-col items-center justify-center min-h-[320px] gap-lg">
-                  <span
-                    className="material-symbols-outlined text-[56px] text-grey-500"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
-                  >
-                    picture_as_pdf
-                  </span>
-                  <div className="text-center">
-                    <p className="font-body-small font-semibold text-white break-all">
-                      {app.document_path
-                        ? app.document_path.split(/[\\/]/).pop()
-                        : 'document.pdf'}
-                    </p>
-                    <p className="font-body-small text-grey-500 mt-xs">Applicant upload</p>
-                  </div>
-                </div>
+                <iframe
+                  src={`/api/applications/${appId}/pdf?user_id=${user!.user_id}`}
+                  title="Application document"
+                  className="w-full h-[560px] border-0"
+                />
                 <div className="px-lg pb-lg space-y-sm border-t border-white/10 pt-lg">
                   <DetailRow label="Applicant ID" value={`#${app.applicant_id}`} />
                   <DetailRow label="Application ID" value={`#${app.id}`} />

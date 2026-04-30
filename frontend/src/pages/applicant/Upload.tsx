@@ -98,7 +98,6 @@ export default function Upload() {
           </nav>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-sm text-slate-300 hidden sm:block">{user?.full_name}</span>
           <button
             onClick={handleLogout}
             className="p-2 rounded-full hover:bg-white/10 transition-all"

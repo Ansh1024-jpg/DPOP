@@ -21,7 +21,12 @@ def send_decision_email(
         logger.warning("Email credentials not configured — skipping notification for app #%d", application_id)
         return
 
-    to_email = "anshks1024@gmail.com"
+    # In dev/demo, notification_email overrides the applicant address so the
+    # developer receives test emails instead of sending to a fake seed address.
+    to_email = settings.notification_email or applicant_email
+    if not to_email:
+        logger.warning("No recipient email for app #%d — skipping notification", application_id)
+        return
 
     is_approved = decision == "approved"
     subject = (

@@ -143,7 +143,6 @@ export default function ManagerDashboard() {
                 .slice(0, 2)
                 .toUpperCase()}
             </div>
-            <span className="text-sm text-slate-300 hidden sm:block">{user?.full_name}</span>
           </div>
           <button
             onClick={handleLogout}
